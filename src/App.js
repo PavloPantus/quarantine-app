@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.scss';
-
+import {
+  BrowserRouter,
+} from 'react-router-dom';
+import RegistrationPage from './components/RegistrationPage/RegistrationPage';
 
 const App = () => (
-
-  <div>
-
-  </div>
+  <BrowserRouter>
+    <div>
+      <RegistrationPage />
+    </div>
+  </BrowserRouter>
 
 );
 
