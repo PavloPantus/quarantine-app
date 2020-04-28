@@ -88,7 +88,7 @@ const RegistrationPage = () => {
       >
         <Form.Input
           value={registrationFormData.firstName}
-          label="first Name"
+          label="Имя"
           onChange={onFormInputChange}
           placeholder="first Name"
           name="firstName"
@@ -97,7 +97,7 @@ const RegistrationPage = () => {
 
         <Form.Input
           value={registrationFormData.lastName}
-          label="last Name"
+          label="Фамилия"
           placeholder="last Name"
           name="lastName"
           onChange={onFormInputChange}
@@ -109,7 +109,7 @@ const RegistrationPage = () => {
           error={
             formError.password || null
           }
-          label="password"
+          label="Пароль"
           name="password"
           type="password"
           onChange={onFormInputChange}
@@ -120,7 +120,7 @@ const RegistrationPage = () => {
           error={
             formError.passwordRepeat || null
           }
-          label="repeat password"
+          label="Повторите пароль"
           name="passwordRepeat"
           type="password"
           onChange={onFormInputChange}
@@ -157,7 +157,7 @@ const RegistrationPage = () => {
             && Object.keys(registrationFormData).length === 5
             ))
           }
-          content="Submit"
+          content="Зарегистрироваться"
         />
 
       </Form>
