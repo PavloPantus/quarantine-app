@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './RegistrationPage.scss';
 import { Form, Message } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../store/usersReducer';
 
 const RegistrationPage = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const emailPattern = new RegExp('^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$');
 
@@ -41,8 +44,7 @@ const RegistrationPage = () => {
       }));
     }
 
-    console.log('error checking');
-    if (registrationFormData.email) {
+    if (typeof (registrationFormData.email) === 'string') {
       if ((registrationFormData.email.match(emailPattern) || []).length === 0) {
         setFormError(data => ({
           ...data,
@@ -61,6 +63,14 @@ const RegistrationPage = () => {
   };
 
   const onFormSubmit = (e) => {
+    dispatch(addUser(
+      {
+        firstName: registrationFormData.firstName,
+        lastName: registrationFormData.lastName,
+        password: registrationFormData.password,
+        email: registrationFormData.email,
+      }
+    ));
     history.push('/login');
   };
 
@@ -68,11 +78,15 @@ const RegistrationPage = () => {
     <div className="registraiton">
       <Form
         onSubmit={onFormSubmit}
-        success={false}
+        success={((
+          Object.keys(formError).length === 0
+          && Object.keys(registrationFormData).length === 5
+        ))}
         error={Object.keys(formError).length > 0}
         className="registration__form"
       >
         <Form.Input
+          value={registrationFormData.firstName}
           label="first Name"
           onChange={onFormInputChange}
           placeholder="first Name"
@@ -81,6 +95,7 @@ const RegistrationPage = () => {
         />
 
         <Form.Input
+          value={registrationFormData.lastName}
           label="last Name"
           placeholder="last Name"
           name="lastName"
@@ -89,6 +104,7 @@ const RegistrationPage = () => {
         />
 
         <Form.Input
+          value={registrationFormData.password}
           error={
             formError.password || null
           }
@@ -99,6 +115,7 @@ const RegistrationPage = () => {
         />
 
         <Form.Input
+          value={registrationFormData.passwordRepeat}
           error={
             formError.passwordRepeat || null
           }
@@ -109,6 +126,7 @@ const RegistrationPage = () => {
         />
 
         <Form.Input
+          value={registrationFormData.email}
           error={
             formError.email || null
           }
@@ -122,8 +140,8 @@ const RegistrationPage = () => {
 
         <Message
           success
-          header="Form Completed"
-          content="You're all signed up for the newsletter"
+          header="все готово!"
+          // content="You're all signed up for the newsletter"
         />
 
         <Message

@@ -1,0 +1,19 @@
+.authorization {
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  border: 1px solid black;
+
+  &__link {
+
+    &:not(:first-child){
+      margin-top: 10px;
+    }
+  }
+}
