@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import './LoginPage.scss';
 import { Form, Message } from 'semantic-ui-react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { usersSelector } from '../../store/usersReducer';
+import { setCurrentUser, usersSelector } from '../../store/usersReducer';
 
 const LoginPage = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const users = useSelector(usersSelector);
 
@@ -22,10 +23,15 @@ const LoginPage = () => {
   };
 
   const onFormSubmit = (e) => {
-    if (users.find(user => user.email === userData.email && user.password === userData.password)) {
+    if (users.find(user => (
+      user.email === userData.email
+      && user.password === userData.password
+    ))) {
+      dispatch(setCurrentUser(userData.email));
       history.push('/registered-notes');
     } else {
-      setEnterError('Логин или пароль введены не верно повторите попытку');
+      // eslint-disable-next-line max-len
+      setEnterError('возможно вы не зарегистрированы или логин и пароль введены не верно повторите попытку');
     }
   };
 

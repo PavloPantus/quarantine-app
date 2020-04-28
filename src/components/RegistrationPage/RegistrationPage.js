@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import './RegistrationPage.scss';
 import { Form, Message } from 'semantic-ui-react';
